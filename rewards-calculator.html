@@ -49,6 +49,13 @@
   .row{ display:flex; justify-content:space-between; align-items:baseline; gap:.75rem; padding:7px 0; border-bottom:1px solid var(--line-soft); font-size:.8rem; }
   .row:last-of-type{ border-bottom:none; }
   .row .label{ color:var(--ink-dim); }
+  .row2{ display:flex; justify-content:space-between; align-items:flex-start; gap:.75rem; padding:8px 0; border-bottom:1px solid var(--line-soft); font-size:.8rem; }
+  .row2:last-of-type{ border-bottom:none; }
+  .row2 .label{ color:var(--ink-dim); line-height:1.3; }
+  .row2 .vals{ text-align:right; flex-shrink:0; }
+  .caprem{ display:block; font-size:.65rem; font-weight:600; margin-top:2px; color:var(--ink-dim); }
+  .caprem.maxed{ color:var(--rose); }
+  .caprem.open{ color:var(--ledger); }
   .field label{ display:block; font-size:.68rem; font-weight:600; letter-spacing:.02em; color:var(--ink-dim); margin-bottom:4px; }
   .field input{
     width:100%; background:transparent; border:none; border-bottom:2px solid var(--line);
@@ -119,7 +126,10 @@
         <h3 class="font-semibold text-sm">BOB Eterna</h3>
         <span class="pill" style="background:var(--amber-soft); color:var(--amber)">15 RP/₹100</span>
       </div>
-      <div class="row"><span class="label">5X points (dining/travel/online/intl)</span><span id="bob5X" class="num">0</span></div>
+      <div class="row2">
+        <span class="label">5X, dining / travel / online / intl</span>
+        <div class="vals"><span id="bob5X" class="num">0</span><span id="bob5XCap" class="caprem"></span></div>
+      </div>
       <div class="row"><span class="label">Base 3 RP/₹100 (after cap + offline)</span><span id="bobOver" class="num">0</span></div>
       <div class="mt-3 flex justify-between items-end">
         <div><span class="text-[10px] uppercase font-semibold" style="color:var(--ink-dim)">Value @ ₹0.25/pt</span>
@@ -178,8 +188,14 @@
         <h3 class="font-semibold text-sm">SBI Cashback</h3>
         <span class="pill" style="background:var(--line-soft); color:var(--ink-dim)">5% / 1%</span>
       </div>
-      <div class="row"><span class="label">Online 5% (cap ₹2,000)</span><span id="sbOnline" class="num">₹0</span></div>
-      <div class="row"><span class="label">Offline 1% (cap ₹2,000)</span><span id="sbOffline" class="num">₹0</span></div>
+      <div class="row2">
+        <span class="label">Online, 5% of eligible spend</span>
+        <div class="vals"><span id="sbOnline" class="num">₹0</span><span id="sbOnlineCap" class="caprem"></span></div>
+      </div>
+      <div class="row2">
+        <span class="label">Offline, 1% of eligible spend</span>
+        <div class="vals"><span id="sbOffline" class="num">₹0</span><span id="sbOfflineCap" class="caprem"></span></div>
+      </div>
       <div class="mt-3 p-4 rounded-2xl flex justify-between items-center" style="background:var(--ledger-soft)">
         <span class="text-[10px] font-semibold uppercase" style="color:var(--ledger)">Total cashback</span>
         <span id="sbCash" class="stat-big text-2xl" style="color:var(--ledger)">₹0</span>
@@ -194,11 +210,26 @@
         <h3 class="font-semibold text-sm">Axis Cashback</h3>
         <span class="pill" style="background:var(--blue-soft); color:var(--blue)">2→5→7%</span>
       </div>
-      <div class="row"><span class="label">Online 2% (up to ₹5k)</span><span id="axOn2" class="num" style="color:#7DA1E0">₹0</span></div>
-      <div class="row"><span class="label">Online 5% (₹5k–40k)</span><span id="axOn5" class="num" style="color:var(--blue)">₹0</span></div>
-      <div class="row"><span class="label">Online 7% (₹40k+)</span><span id="axOn7" class="num" style="color:#1B3E77">₹0</span></div>
-      <div class="row"><span class="label">Offline/travel 0.75%</span><span id="axOff" class="num">₹0</span></div>
-      <div class="row"><span class="label">Utility 0.5% (cap ₹100)</span><span id="axUtil" class="num">₹0</span></div>
+      <div class="row2">
+        <span class="label">Online 2%, on the first ₹5k</span>
+        <div class="vals"><span id="axOn2" class="num" style="color:#7DA1E0">₹0</span><span id="axOn2Cap" class="caprem"></span></div>
+      </div>
+      <div class="row2">
+        <span class="label">Online 5%, on the next ₹35k</span>
+        <div class="vals"><span id="axOn5" class="num" style="color:var(--blue)">₹0</span><span id="axOn5Cap" class="caprem"></span></div>
+      </div>
+      <div class="row2">
+        <span class="label">Online 7%, above ₹40k</span>
+        <div class="vals"><span id="axOn7" class="num" style="color:#1B3E77">₹0</span><span id="axOn7Cap" class="caprem"></span></div>
+      </div>
+      <div class="row2">
+        <span class="label">Offline / travel, 0.75% — no cap</span>
+        <div class="vals"><span id="axOff" class="num">₹0</span></div>
+      </div>
+      <div class="row2">
+        <span class="label">Utility, 0.5% of spend</span>
+        <div class="vals"><span id="axUtil" class="num">₹0</span><span id="axUtilCap" class="caprem"></span></div>
+      </div>
       <div class="mt-3 p-3 rounded-2xl flex justify-between items-center" style="background:var(--blue-soft)">
         <span class="text-[10px] font-semibold uppercase" style="color:var(--blue)">Total cashback</span>
         <span id="axTotal" class="stat-big text-xl" style="color:var(--blue)">₹0</span>
@@ -249,6 +280,28 @@
 function fmtInr(n){ return "₹" + Math.floor(n).toLocaleString('en-IN'); }
 function fmtNum(n){ return Math.floor(n).toLocaleString('en-IN'); }
 
+/* Shows how much of a per-tier cap is left, or that it's maxed out. */
+function capLine(elId, earned, capValue){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const maxed = earned >= capValue - 0.5;
+  el.classList.toggle('maxed', maxed);
+  el.classList.toggle('open', !maxed);
+  el.innerText = maxed
+    ? "tier capped at " + fmtInr(capValue)
+    : fmtInr(capValue - earned) + " left of " + fmtInr(capValue) + " tier cap";
+}
+function capLinePts(elId, earnedPts, capPts){
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const maxed = earnedPts >= capPts - 0.5;
+  el.classList.toggle('maxed', maxed);
+  el.classList.toggle('open', !maxed);
+  el.innerText = maxed
+    ? "tier capped at " + fmtNum(capPts) + " pts"
+    : fmtNum(capPts - earnedPts) + " pts left of " + fmtNum(capPts) + " cap";
+}
+
 function calc(){
   const a = +accel.value || 0, b = +base.value || 0, u = +util.value || 0, y = +ytd.value || 0;
   const current = a + b + u;
@@ -263,6 +316,7 @@ function calc(){
   const bobTotalPts = bob5XPts + bobOverflowPts + bobBasePts;
   bob5X.innerText = fmtNum(bob5XPts);
   bobOver.innerText = fmtNum(bobOverflowPts + bobBasePts);
+  capLinePts('bob5XCap', bob5XPts, 5000);
   bobCash.innerText = fmtInr(bobTotalPts * 0.25);
   bobCapBar.style.width = Math.min(100, (bob5XPts / 5000) * 100) + "%";
   bobCapMsg.innerText = bob5XPts >= 5000
@@ -296,9 +350,11 @@ function calc(){
   sbOnline.innerText = fmtInr(sbOnlineVal);
   sbOffline.innerText = fmtInr(sbOfflineVal);
   sbCash.innerText = fmtInr(sbOnlineVal + sbOfflineVal);
+  capLine('sbOnlineCap', sbOnlineVal, 2000);
+  capLine('sbOfflineCap', sbOfflineVal, 2000);
   let sbMsgs = [];
-  if (a >= 40000) sbMsgs.push("Online cap reached (₹40k spend)");
-  if (b >= 200000) sbMsgs.push("Offline cap reached (₹2L spend)");
+  if (a >= 40000) sbMsgs.push("Online spend past ₹40k earns nothing extra here");
+  if (b >= 200000) sbMsgs.push("Offline spend past ₹2L earns nothing extra here");
   sbCap.innerText = sbMsgs.join(" · ");
 
   /* ---- Axis Cashback: 2% / 5% / 7% online tiers, ₹4,000 monthly ceiling ---- */
@@ -308,6 +364,7 @@ function calc(){
   let capRem = 4000;
   const axFinal2 = Math.min(axEarn2, capRem); capRem -= axFinal2;
   const axFinal5 = Math.min(axEarn5, capRem); capRem -= axFinal5;
+  const axRemBeforeTier3 = capRem;
   const axFinal7 = Math.min(axEarn7, capRem); capRem -= axFinal7;
   const axFinalOn = axFinal2 + axFinal5 + axFinal7;
   const axOffVal = b * 0.0075;
@@ -319,6 +376,18 @@ function calc(){
   axOff.innerText = fmtInr(axOffVal);
   axUtil.innerText = fmtInr(axUtilVal);
   axTotal.innerText = fmtInr(axTotalVal);
+  capLine('axOn2Cap', axFinal2, 100);
+  capLine('axOn5Cap', axFinal5, 1750);
+  capLine('axUtilCap', axUtilVal, 100);
+  const axOn7Cap = document.getElementById('axOn7Cap');
+  if (axOn7Cap){
+    const tier3Maxed = axFinal7 >= axRemBeforeTier3 - 0.5;
+    axOn7Cap.classList.toggle('maxed', tier3Maxed);
+    axOn7Cap.classList.toggle('open', !tier3Maxed);
+    axOn7Cap.innerText = tier3Maxed
+      ? "₹4,000 aggregate cap reached"
+      : fmtInr(axRemBeforeTier3) + " left in ₹4,000 aggregate cap";
+  }
   axCap.innerText = (axEarn2 + axEarn5 + axEarn7) >= 4000
     ? "Online max hit (₹4,000)"
     : fmtInr(4000 - axFinalOn) + " remaining in online cap";
